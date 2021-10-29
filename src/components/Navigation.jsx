@@ -13,7 +13,10 @@ export default function Navigation() {
         </Link>
 
         <Link href="/notes">
-          <a sx={{ variant: 'containers.navLink' }}>Notes</a>
+          <a sx={{ variant: 'containers.navLink' }}>Notes test</a>
+        </Link>
+        <Link href={`${process.env.HELP_APP_URL}`}>
+          <a sx={{ variant: 'containers.navLink' }}>Help</a>
         </Link>
       </nav>
     </header>
