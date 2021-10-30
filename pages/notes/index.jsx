@@ -4,10 +4,8 @@ import { jsx } from 'theme-ui'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-export default () => {
+export default ({ notes }) => {
   const router = useRouter()
-  const notes = new Array(12).fill(1).map((e, i) => ({ id: i, title: `Note: ${i}` }))
-
   return (
     <div sx={{ variant: 'containers.page' }}>
       <h1>My Notes</h1>
@@ -33,11 +31,28 @@ export default () => {
         ))}
       </div>
 
-      <button onClick={e => router.push('/')} sx={{ variant: 'containers.button' }}>
+      <button
+        onClick={e => router.push('/')}
+        sx={{ variant: 'containers.button' }}
+      >
         Go Home
       </button>
     </div>
   )
+}
+
+export async function getServerSideProps() {
+  try {
+    const response = await fetch('http://localhost:3000/api/note')
+    const { data } = await response.json()
+    return {
+      props: {
+        notes: data,
+      },
+    }
+  } catch (error) {
+    console.log(error.json())
+  }
 }
 
 /**
